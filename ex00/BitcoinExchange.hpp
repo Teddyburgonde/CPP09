@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teddybandama <teddybandama@student.42.f    +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 11:14:12 by tebandam          #+#    #+#             */
-/*   Updated: 2024/12/02 20:19:38 by teddybandam      ###   ########.fr       */
+/*   Updated: 2024/12/03 09:17:33 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <string>
 #include <fstream>
 #include <cctype>
+#include <stdlib.h>
 
 
 #endif

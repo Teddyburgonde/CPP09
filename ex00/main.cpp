@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teddybandama <teddybandama@student.42.f    +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 11:14:02 by tebandam          #+#    #+#             */
-/*   Updated: 2024/12/02 21:28:46 by teddybandam      ###   ########.fr       */
+/*   Updated: 2024/12/03 09:54:51 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ bool isValidLine(const std::string& line)
 		return false;
 	if (line[4] != '-' || line[7] != '-')
 		return false;
+	if (line[11] != '|' || line[10] != ' ' || line[12] != ' ')
+		return false;
 	for(int i = 0; i <= 10; i++)
 	{
-		if (i == 4 || i == 7)
+		if (i == 4 || i == 7 || (i > 9 && i < 13))
 			continue;
 		if(!isdigit(line[i]))
 			return false;
@@ -56,10 +58,17 @@ bool isValidDate(const std::string& line)
 	return true;
 }
 
-int main()
+int main(int argc, char **argv)
 {
+	(void)argv;
+	if (argc == 1)
+	{
+		std::cout << "Error: could not open file." << std::endl;
+		return 1;
+	}
+	
 	std::ifstream file("input.txt"); // Creation d'un objet ifstream pour ouvrir et lire le fichier
-
+	
 	if (!file.is_open())
 	{
 		std::cout << "Error: could not open file." << std::endl;
@@ -73,7 +82,6 @@ int main()
 			std::cout << "Invalid line: " << line << std::endl;
 			continue;
 		}
-		std::cout << "Valid line: " << line << std::endl; // Affiche les lignes valides
 	}
 	 // Ferme le fichier après avoir fini de le lire
     file.close();
