@@ -12,7 +12,7 @@
 
 #include "BitcoinExchange.hpp" 
 
-bool verifLength(const std::string &date, std::string &errorMessage)
+static bool verifLength(const std::string &date, std::string &errorMessage)
 {
 	if (date.size() != 10)
     {
@@ -22,7 +22,7 @@ bool verifLength(const std::string &date, std::string &errorMessage)
 	return true;
 }
 
-bool	verifSeparator(const std::string &date, std::string &errorMessage)
+static bool	verifSeparator(const std::string &date, std::string &errorMessage)
 {
 	if (date[4] != '-' || date[7] != '-')
     {
@@ -32,7 +32,7 @@ bool	verifSeparator(const std::string &date, std::string &errorMessage)
 	return true;
 }
 
-bool	verifNumericSegments(const std::string &date, std::string &errorMessage)
+static bool	verifNumericSegments(const std::string &date, std::string &errorMessage)
 {
 	int yearLength = 4;
     int monthLength = 2;
@@ -67,14 +67,14 @@ bool	verifNumericSegments(const std::string &date, std::string &errorMessage)
 	return true;
 }
 
-bool isDateFormatValid(const std::string &date, std::string &errorMessage)
+static bool isDateFormatValid(const std::string &date, std::string &errorMessage)
 {
     if (verifLength(date, errorMessage) == false || verifSeparator(date, errorMessage) == false || verifNumericSegments(date, errorMessage) == false)
         return (false);
     return true;
 }
 
-bool isValidYearRange(int year, std::string &errorMessage)
+static bool isValidYearRange(int year, std::string &errorMessage)
 {
     if (year < 1900 || year > 2100)
     {
@@ -84,7 +84,7 @@ bool isValidYearRange(int year, std::string &errorMessage)
     return true;
 }
 
-bool isValidMonthRange(int month, std::string &errorMessage)
+static bool isValidMonthRange(int month, std::string &errorMessage)
 {
     if (month < 1 || month > 12)
     {
@@ -94,7 +94,7 @@ bool isValidMonthRange(int month, std::string &errorMessage)
     return true;
 }
 
-bool isValidDayRange(int year, int month, const std::string &date, std::string &errorMessage)
+static bool isValidDayRange(int year, int month, const std::string &date, std::string &errorMessage)
 {
     int day = 0;
 
@@ -127,7 +127,7 @@ bool isValidDayRange(int year, int month, const std::string &date, std::string &
     return true;
 }
 
-bool isValidRange(const std::string &date, std::string &errorMessage)
+static bool isValidRange(const std::string &date, std::string &errorMessage)
 {
     int year = 0;
     int month = 0;
@@ -147,6 +147,7 @@ bool isValidRange(const std::string &date, std::string &errorMessage)
         return false;
     return true;
 }
+
 bool isValidDate(const std::string &date, std::string &errorMessage)
 {
     if (isDateFormatValid(date, errorMessage) == false || isValidRange(date, errorMessage) == false)

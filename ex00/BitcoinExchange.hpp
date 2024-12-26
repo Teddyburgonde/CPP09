@@ -17,8 +17,10 @@
 #include <iostream>
 #include <stdexcept>
 #include <fstream>
+#include <sstream>
 
 std::map<std::string, float> readAndStockDataInFile();
 bool isValidDate(const std::string &date);
+bool ifValidRate(const std::string& rate);
 
 #endif

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-#include <sstream>
 
 /* Converts a string to a float  */
 float stringToFloat(const std::string& str) 
@@ -26,7 +25,6 @@ float stringToFloat(const std::string& str)
         throw std::runtime_error("Invalid float format: " + str);
     return value;
 }
-
 
 /* Reads data from the file data.csv */
 std::map<std::string, float> readAndStockDataInFile()
