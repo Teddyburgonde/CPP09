@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 		std::map<std::string, float> _data;
 		_data = readAndStockDataInFile();
 		// printMap(_data); // a enlever 
-	} 
+	}
 	catch (const std::exception& e) 
 	{
 		std::cerr << "Exception caught: " << e.what() << std::endl;

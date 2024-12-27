@@ -6,13 +6,13 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:20:46 by tebandam          #+#    #+#             */
-/*   Updated: 2024/12/25 14:37:53 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/12/27 14:20:28 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
-bool ifValidRate(const std::string& rate)
+bool isValidRate(const std::string& rate)
 {
 	try
 	{
