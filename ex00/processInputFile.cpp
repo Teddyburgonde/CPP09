@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:19:27 by tebandam          #+#    #+#             */
-/*   Updated: 2024/12/28 09:39:21 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/12/28 11:19:53 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void processInputFile(const std::string &inputFilePath, const std::map <std::str
     std::string rate;
     std::string errorMessage;
     std::string closesDate;
-    float       exchangeRate;
     float       rateFloat;
     float       valueOfBitcoin;
     
@@ -49,8 +48,12 @@ void processInputFile(const std::string &inputFilePath, const std::map <std::str
     std::ifstream inputFile(inputFilePath.c_str());
     if (!inputFile.is_open())
         throw std::runtime_error("Error: Could not open file: " + inputFilePath);
+    
+    // Set fixed-point notation for output
+    std::cout.precision(2);
+    std::cout.setf(std::ios::fixed, std::ios::floatfield);
     // Read the file
-    while (std::getline(inputFile, line)) // sauter une ligne ou pas ???
+    while (std::getline(inputFile, line))
 	{
         // Skip empty lines
         if (line.empty())
@@ -58,27 +61,32 @@ void processInputFile(const std::string &inputFilePath, const std::map <std::str
         // Separate date and rate
 		std::istringstream iss(line);
         std::getline(iss, date, '|');
-
         std::getline(iss, rate);
 
         // Remove spaces
+        date = trim(date);
         rate = trim(rate);
         
         // Confirm date
         if (isValidDate(date, errorMessage) ==  false)
-            throw std::runtime_error(errorMessage); //! errorMessage ???? faut tester.
-        
+        {
+            std::cerr << errorMessage << " => " << date << std::endl;
+            continue;
+            
+        }
         // Confirm rate
-        if (isValidRate(rate) == false)    
-            throw std::runtime_error(errorMessage); //! errorMessage ???? faut tester.
-        
+        if (isValidRate(rate, errorMessage) == false)    
+        {
+            std::cerr << errorMessage << " => " << rate << std::endl;
+            continue;
+        }
         // Convert value to float
         rateFloat = std::atof(rate.c_str());
 
         // Confirm range of rate
         if (rateFloat < 0 || rateFloat > 1000)
         {
-            std::cerr << "Error: rate out of range => " << rate << std::endl;
+            std::cerr << "Error: Rate is out of range (0-1000) => " << rate << std::endl;
             continue;
         }
 
@@ -87,16 +95,17 @@ void processInputFile(const std::string &inputFilePath, const std::map <std::str
         if (it == bitcoinData.end() || it->first != date)
         {
             if (it == bitcoinData.begin())
-                throw std::runtime_error("Error: date not found in database");
+            {
+                std::cerr << "Error: Date not found in database => " << date << std::endl;
+                continue;
+            }
             --it;
         }
-        closesDate = it->first;
-        exchangeRate = it->second;
         // Calculating the value of bitcoin
-        valueOfBitcoin =  exchangeRate * rateFloat;
+        valueOfBitcoin =  it->second * rateFloat;
 
         // display result
-        std::cout << closesDate << " => " << rate << " = " << valueOfBitcoin << std::endl;     
+        std::cout <<  date << " => " << rate << " = " << valueOfBitcoin << std::endl;     
         
     }
     // Close the file
