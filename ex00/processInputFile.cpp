@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:19:27 by tebandam          #+#    #+#             */
-/*   Updated: 2024/12/28 09:32:16 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/12/28 09:39:21 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void processInputFile(const std::string &inputFilePath, const std::map <std::str
     if (!inputFile.is_open())
         throw std::runtime_error("Error: Could not open file: " + inputFilePath);
     // Read the file
-	while (std::getline(inputFile, line)) //! sauter une ligne ou pas ??????????????????????????????????????????????????????????
+    while (std::getline(inputFile, line)) // sauter une ligne ou pas ???
 	{
         // Skip empty lines
         if (line.empty())

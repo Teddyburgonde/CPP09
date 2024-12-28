@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:20:46 by tebandam          #+#    #+#             */
-/*   Updated: 2024/12/27 14:20:28 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/12/28 09:59:57 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 bool isValidRate(const std::string& rate)
 {
-	try
-	{
-		// Convert string to float
-		std::stof(rate);
-	}
-	catch (const std::exception& e)
-	{
-		std::cout << e.what() << std::endl;
-		return false;
-	}
+	std::stringstream ss(rate);
+	float	value;
+	
+	
+	if (!(ss >> value))
+		return false; // Conversion failure
+	// Check that the entire string has been converted
+	if (!ss.eof())
+        return false;
 	return true;
 }
 

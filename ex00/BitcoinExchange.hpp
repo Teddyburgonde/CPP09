@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:45:00 by tebandam          #+#    #+#             */
-/*   Updated: 2024/12/27 14:23:10 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/12/28 09:39:56 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 #include <stdexcept>
 #include <fstream>
 #include <sstream>
+#include <cstdlib>
 
 std::map<std::string, float> readAndStockDataInFile();
+void processInputFile(const std::string &inputFilePath, const std::map <std::string, float > &bitcoinData);
 bool isValidDate(const std::string &date, std::string &errorMessage);
 bool isValidRate(const std::string& rate);
 std::string trim(const std::string& str);

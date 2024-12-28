@@ -14,6 +14,8 @@ CFLAGS = -Wall -Wextra -Werror -g -std=c++98
 
 SRCS = BitcoinExchange.cpp \
 		isValidDate.cpp \
+		isValidRate.cpp \
+		processInputFile.cpp \
 		main.cpp \
 
 #============== OBJECT FILES ================#
