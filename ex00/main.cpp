@@ -6,20 +6,11 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:51:22 by tebandam          #+#    #+#             */
-/*   Updated: 2024/12/28 11:28:28 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/12/28 11:29:39 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-
-void	printMap(std::map<std::string, float> _data)
-{
-	std::map<std::string, float>::iterator it;
-	for(it = _data.begin(); it != _data.end(); ++it)
-	{
-		std::cout << it->first << " " << it->second << std::endl;
-	}
-}
 
 int main(int argc, char **argv)
 {

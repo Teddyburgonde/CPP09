@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:19:27 by tebandam          #+#    #+#             */
-/*   Updated: 2024/12/28 11:19:53 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/12/28 11:58:45 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ std::string trim(const std::string& str)
     }
 
     size_t end = str.size();
-    while (end > start && std::isspace(str[end - 1])) {
+    while (end > start && std::isspace(str[end - 1]))
         --end;
-    }
-
-    // Construction de la chaîne résultat sans `substr`
     std::string result;
     for (size_t i = start; i < end; ++i) 
     {

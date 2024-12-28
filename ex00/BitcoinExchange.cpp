@@ -6,11 +6,33 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:50:22 by tebandam          #+#    #+#             */
-/*   Updated: 2024/12/23 13:32:57 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/12/28 11:55:30 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
+
+/* Constructor */
+BitcoinExchange::BitcoinExchange() {}
+
+/* Destructor */
+BitcoinExchange::~BitcoinExchange() {}
+
+/* Copy constructor */
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &other)
+{
+	*this = other;
+}
+
+/* Assignment operator */
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
+{
+	if (this != &other)
+	{
+		this->bitcoinData = other.bitcoinData;
+	}
+	return *this;
+}
 
 /* Converts a string to a float  */
 float stringToFloat(const std::string& str) 
