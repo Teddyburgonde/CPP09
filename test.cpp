@@ -3,6 +3,21 @@
 #include <stack>
 #include <sstream>
 
+
+float stringToFloat(const std::string& str) 
+{
+    std::stringstream ss(str);
+    float value;
+
+	// Convert 
+    ss >> value; 
+
+    if (ss.fail() || !ss.eof())
+        throw std::runtime_error("Invalid float format: " + str);
+    return value;
+}
+
+
 bool	isOperator(char c)
 {
 	if (c == '+' || c == '-' || c == '/' || c == '*')
@@ -40,16 +55,40 @@ int	main()
 {
 	std::stack<float> stk;
 	std::string token;
-	std::string rpnExpression = "3 4 +";
+	std::string rpnExpression = "10 2 8 * + 3 -";
 	std::istringstream iss(rpnExpression);
+	float result;
 
-
-	while (iss >> token)
+	try 
 	{
-		if (isdigit(token[0]))
+		while (iss >> token)
 		{
-			std::cout << token[0] << " c'est un digit " << std::endl;
+			if (isdigit(token[0]))
+			{
+				stringToFloat(token);
+				stk.push(stringToFloat(token));
+			}
+			else if (isOperator(token[0]) == true)
+			{
+				if (stk.size() < 2)
+					throw std::runtime_error("Error: Not enough operators");
+				float second = stk.top(); stk.pop();
+				float first = stk.top(); stk.pop();
+				result = performOperation(first, second, token[0]);
+				stk.push(result);
+			}
+			else
+				throw std::runtime_error("Error: Invalid token");
 		}
+		if (stk.size() != 1) // protect
+			throw std::runtime_error("Error: Invalid RPN expression");
+		result = stk.top();
+		std::cout << "result :" << result << std::endl;
+	} 
+	catch (const std::exception& e) 
+	{
+		std::cerr << e.what() << std::endl;
+        return 1;
 	}
 
 }
