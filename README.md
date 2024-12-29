@@ -49,59 +49,140 @@ int	main()
 }
 ```
 
-J'ai utilisé une map pour stocker chaque parti :
+# Guide pour Réussir l’Exercice ex00 : Bitcoin Exchange
 
-2009-01-02,0
+Ce guide vous explique comment aborder l’exercice **ex00 : Bitcoin Exchange** en C++, afin de manipuler des fichiers, valider des données, et effectuer des calculs avec des taux d’échange.
 
-Après la séparation a la virgule :
+---
 
-date = 2009-01-02
-rate = 0
+## 1. Comprendre l’Exercice
+- **Objectif :** Créer un programme qui analyse un fichier contenant des dates et des taux d’échange pour calculer la valeur équivalente en Bitcoin.
+- **Concepts clés :**
+  - Manipulation de fichiers avec `std::ifstream`.
+  - Validation des dates et des nombres.
+  - Calcul dynamique basé sur des données pré-chargées.
+  - Utilisation de structures comme `std::map` pour associer les dates aux taux.
 
-Si on passe par un iterator
-it->first sera égal a la valeur de date.
-it->second sera égal a la valeur de rate.
+---
 
-Parsing :
+## 2. Architecture du Code
 
-J'ai fait un parsing sur la date et rate. 
-bool isValidDate(const std::string &date, std::string &errorMessage);
-bool isValidRate(const std::string& rate, std::string &errorMessage);
+### 2.1 Structure Principale
 
-La fonction processInputFile : 
+#### Fonction **`main`**
+- Gère les arguments de ligne de commande.
+- Initialise les données Bitcoin en les chargeant dans une `std::map`.
+- Appelle la fonction **`processInputFile`** pour lire et analyser le fichier d’entrée.
 
-```c
-1. Ouvrir le fichier d'entrée
-std::ifstream
+#### Fonction **`processInputFile`**
+- Lit le fichier ligne par ligne.
+- Valide les dates et les taux pour chaque ligne.
+- Calcule la valeur de Bitcoin à partir des taux valides.
+- Affiche les résultats ou les erreurs.
 
-2. Lire le fichier ligne par ligne
-std::getline
+### 2.2 Fonctions Clés
 
-3. Separer la date et la valeur 
-std::isstringstream iss
-std::getline;
+#### **Validation des Données**
+- **`isValidDate` :** Valide le format et la portée des dates.
+- **`isValidRate` :** Valide les taux en s’assurant qu’ils sont des nombres valides et dans une plage pré-définie.
 
-4. Nettoyer les espaces inutiles
-Créer une function trim.
+#### **Gestion des Fichiers**
+- **`readAndStockDataInFile` :** Charge les taux de Bitcoin à partir d’un fichier CSV dans une `std::map`.
+- **`trim` :** Supprime les espaces inutiles autour des données.
 
-5. Valider la date
-isValidDate
- 
-6. Vaider la rate 
-isValidRate
+---
 
-7. Convertir la valeur en nombre.
+## 3. Fonctionnalités Principales
 
-8. Trouver la date correspondante dans les donnes bitcoin.
+### 3.1 Validation des Dates
 
-9. Calculer la valeur du Bitcoin
-echangeRate * rate;
+#### **`isValidDate`**
+- Vérifie que la date suit le format `YYYY-MM-DD`.
+- Assure que :
+  - La longueur est correcte.
+  - Les séparateurs sont bien des tirets (`-`).
+  - Les segments (année, mois, jour) sont numériques.
+  - Les valeurs sont dans des plages valides (ex. : mois entre 1 et 12, jours adaptés au mois).
 
-10. Afficher le résultat.
-
-11. Fermer le fichier. 
-
+#### Exemple d’Utilisation :
+```cpp
+std::string errorMessage;
+if (!isValidDate("2023-06-15", errorMessage)) {
+    std::cerr << errorMessage << std::endl;
+}
 ```
+
+---
+
+### 3.2 Validation des Taux
+
+#### **`isValidRate`**
+- Assure que les taux sont des nombres valides.
+- Vérifie qu’ils ne contiennent pas de caractères invalides.
+- Confirme que le taux est compris entre 0 et 1000 (plage définie).
+
+#### Exemple d’Utilisation :
+```cpp
+std::string errorMessage;
+if (!isValidRate("123.45", errorMessage)) {
+    std::cerr << errorMessage << std::endl;
+}
+```
+
+---
+
+### 3.3 Calcul de la Valeur en Bitcoin
+
+#### **`performOperation`**
+- Multiplie le taux d’échange par la valeur en Bitcoin pré-chargée dans `std::map`.
+
+#### Exemple d’Utilisation :
+```cpp
+float valueOfBitcoin = bitcoinData["2023-06-01"] * rate;
+```
+
+---
+
+## 4. Exemple de Fonctionnement
+
+### Fichier d’Entrée : `input.txt`
+```
+2023-06-01 | 2.5
+2023-06-03 | 1.2
+2023-06-10 | abc
+2023-04-31 | 5.0
+```
+
+### Fichier des Taux : `data.csv`
+```
+Date,Exchange Rate
+2023-06-01,20000.0
+2023-06-03,18000.0
+2023-06-10,23000.0
+2023-06-04,22000.0
+```
+
+### Sortie Attendue :
+```
+2023-06-01 => 2.5 = 50000.00
+2023-06-03 => 1.2 = 21600.00
+Error: Rate is not a valid number. => abc
+Error: Day out of range (1-31) => 2023-04-31
+```
+
+---
+
+## 5. Conseils pour Réussir
+1. **Chargez les Données Correctement :** Assurez-vous que les fichiers CSV et d’entrée sont bien formatés.
+2. **Validez Toutes les Données :** Utilisez les fonctions de validation pour chaque champ (dates et taux).
+3. **Gérez les Erreurs :** Fournissez des messages d’erreur clairs pour faciliter le débogage.
+4. **Testez Différents Cas :** Essayez avec des dates en dehors de la plage valide, des taux non numériques, et des lignes vides.
+
+---
+
+Bonne chance ! Si vous avez des questions ou rencontrez des problèmes, n’hésitez pas à demander de l’aide. 😊
+
+
 
 # ex01
 
@@ -140,7 +221,6 @@ int	main()
 	std::cout << "le sommet de la pile est : " << stk.top() << std::endl;
 }
 ```
-# ex01
 
 # Guide pour Réussir l’Exercice Reverse Polish Notation (RPN)
 
