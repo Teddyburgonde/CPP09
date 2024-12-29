@@ -17,7 +17,6 @@ float stringToFloat(const std::string& str)
     return value;
 }
 
-
 bool	isOperator(char c)
 {
 	if (c == '+' || c == '-' || c == '/' || c == '*')
@@ -25,9 +24,9 @@ bool	isOperator(char c)
 	return false;
 }
 
-float	performOperation(int firstOperant, int secondOperant, char op)
+float	performOperation(float firstOperant, float secondOperant, char op)
 {
-	int result;
+	float result;
 
 	switch (op)
 	{
@@ -51,45 +50,71 @@ float	performOperation(int firstOperant, int secondOperant, char op)
 	return result;
 }
 
-int	main()
+bool isValidNumber(const std::string& token) 
+{
+    std::istringstream iss(token);
+    float value;
+	bool isValid;
+
+	isValid = (iss >> value) && iss.eof();
+    return isValid;
+}
+
+void validateToken(const std::string& token) 
+{
+    if (!isValidNumber(token) && !(token.size() == 1 && isOperator(token[0])))
+        throw std::runtime_error("Error: Unexpected token '" + token + "'");
+}
+
+
+float calculateRPN(std::string rpnExpression)
 {
 	std::stack<float> stk;
 	std::string token;
-	std::string rpnExpression = "10 2 8 * + 3 -";
 	std::istringstream iss(rpnExpression);
+	float	result;
+
+	while (iss >> token)
+	{
+		validateToken(token);
+		if (isValidNumber(token))
+			stk.push(stringToFloat(token));
+		else if (isOperator(token[0]))
+		{
+			if (stk.size() < 2)
+				throw std::runtime_error("Error: Not enough operators");
+			float second = stk.top(); stk.pop();
+			float first = stk.top(); stk.pop();
+			result = performOperation(first, second, token[0]);
+			stk.push(result);
+		}
+	}
+	if (stk.size() != 1)
+		throw std::runtime_error("Error: Invalid RPN expression");
+	result = stk.top();
+	return result;
+}
+
+int	main(int argc, char **argv)
+{
 	float result;
 
+	if (argc != 2 || std::string(argv[1]).empty())
+	{
+		std::cerr << "Error: Invalid input" << std::endl;
+		return 1;
+	}
+	std::string rpnExpression = argv[1];
 	try 
 	{
-		while (iss >> token)
-		{
-			if (isdigit(token[0]))
-			{
-				stringToFloat(token);
-				stk.push(stringToFloat(token));
-			}
-			else if (isOperator(token[0]) == true)
-			{
-				if (stk.size() < 2)
-					throw std::runtime_error("Error: Not enough operators");
-				float second = stk.top(); stk.pop();
-				float first = stk.top(); stk.pop();
-				result = performOperation(first, second, token[0]);
-				stk.push(result);
-			}
-			else
-				throw std::runtime_error("Error: Invalid token");
-		}
-		if (stk.size() != 1) // protect
-			throw std::runtime_error("Error: Invalid RPN expression");
-		result = stk.top();
-		std::cout << "result :" << result << std::endl;
+		result = calculateRPN(rpnExpression);
+		std::cout << result << std::endl;
 	} 
 	catch (const std::exception& e) 
 	{
 		std::cerr << e.what() << std::endl;
         return 1;
 	}
-
+	return 0;
 }
 
