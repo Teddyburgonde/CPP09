@@ -1,115 +1,94 @@
+#include <iostream>
+#include <vector>
+#include <deque>
+#include <string>
+#include <cstdlib> // Pour std::atoi
+#include <cctype>  // Pour isdigit
+#include <stdexcept> // Pour std::runtime_error
+#include <utility> // Pour std::pair
 
-// float stringToFloat(const std::string& str) 
-// {
-//     std::stringstream ss(str);
-//     float value;
+// Fonction pour vérifier si une chaîne est un entier positif
+bool isValidNumber(const std::string& str) {
+    if (str.empty()) {
+        throw std::runtime_error("Error: Empty string is not a valid number.");
+    }
+    for (size_t i = 0; i < str.size(); ++i) {
+        if (!isdigit(str[i])) {
+            throw std::runtime_error("Error: Non-numeric character found in input: " + str);
+        }
+    }
+    return true;
+}
 
-// 	// Convert 
-//     ss >> value; 
+// Fonction pour afficher les paires
+void printPairs(const std::vector<std::pair<int, int> >& pairs) 
+{
+    for (std::vector<std::pair<int, int> >::const_iterator it = pairs.begin(); it != pairs.end(); ++it) {
+        std::cout << "(" << it->first << ", " << it->second << ")" << std::endl;
+    }
+}
 
-//     if (ss.fail() || !ss.eof())
-//         throw std::runtime_error("Invalid float format: " + str);
-//     return value;
-// }
+int main(int argc, char* argv[]) 
+{
+    try 
+    {
+        if (argc < 2) {
+            throw std::runtime_error("Error: No input provided.");
+        }
 
-// bool	isOperator(char c)
-// {
-// 	if (c == '+' || c == '-' || c == '/' || c == '*')
-// 		return true;
-// 	return false;
-// }
+        std::vector<int> vector; // Conteneur pour les chiffres
+        std::deque<int> deque;   // Conteneur pour les chiffres
+        std::vector<std::pair<int, int> > even; // Conteneur pour les paires
+        std::vector<int> final_vector;
+        std::vector<int> final_deque;
 
-// float	performOperation(float firstOperant, float secondOperant, char op)
-// {
-// 	float result;
+        // Étape 1 et 2 : Vérifier, convertir et ajouter dans vector et deque
+        for (int i = 1; i < argc; ++i) 
+        {
+            std::string arg = argv[i];
 
-// 	switch (op)
-// 	{
-// 		case '-':
-// 			result = firstOperant - secondOperant;
-// 			break;
-// 		case '+':
-// 			result = firstOperant + secondOperant;
-// 			break;
-// 		case '*':
-// 			result = firstOperant * secondOperant;
-// 			break;
-// 		case '/':
-// 			if (secondOperant == 0)
-// 				throw std::runtime_error("Error: Division by 0");
-// 			result = firstOperant / secondOperant;
-// 			break;
-// 		default:
-//     		throw std::runtime_error("Error: Invalid operator");
-// 	}
-// 	return result;
-// }
+            // Vérifier avec la fonction isValidNumber
+            if (isValidNumber(arg)) {
+                // Convertir l'argument en entier
+                int num = std::atoi(arg.c_str());
+                vector.push_back(num); // Ajouter dans vector
+                deque.push_back(num);  // Ajouter dans deque
+            }
+        }
 
-// bool isValidNumber(const std::string& token) 
-// {
-//     std::istringstream iss(token);
-//     float value;
-// 	bool isValid;
+        // Étape 3 : Former des paires
+        for (size_t i = 0; i < vector.size(); i += 2) 
+        {
+            int a = vector[i];
+            int b = (i + 1 < vector.size()) ? vector[i + 1] : 0; // Gérer les cas impairs
+            even.push_back(std::make_pair(std::min(a, b), std::max(a, b))); // Créer une paire (min, max)
+        }
 
-// 	isValid = (iss >> value) && iss.eof();
-//     return isValid;
-// }
+        // Affichage des paires
+        std::cout << "Even first:" << std::endl;
+        std::vector<std::pair<int, int> >::const_iterator it = even.begin();
+        std::vector<int>::iterator itt = final_vector.begin();
 
-// void validateToken(const std::string& token) 
-// {
-//     if (!isValidNumber(token) && !(token.size() == 1 && isOperator(token[0])))
-//         throw std::runtime_error("Error: Unexpected token '" + token + "'");
-// }
+        // Étape 5 : Envoyer les mins dans final_vector
+        for (std::vector<std::pair<int, int> >::const_iterator it = even.begin(); it != even.end(); ++it) 
+        {
+            final_vector.push_back(it->first); // Ajouter les mins (it->first) dans final_vector
+            final_deque.push_back(it->first);
+        }
+        // Affichage des mins
+        std::cout << "Mins in final_vector:" << std::endl;
+        for (std::vector<int>::const_iterator it = final_vector.begin(); it != final_vector.end(); ++it) 
+        {
+            std::cout << *it << " ";
+        }
+        std::cout << std::endl;
+    }
+    catch (const std::exception& e) 
+    {
+        std::cerr << e.what() << std::endl;
+        return 1; // Retourne une erreur si une exception est levée
+    }
 
-
-// float calculateRPN(std::string rpnExpression)
-// {
-// 	std::stack<float> stk;
-// 	std::string token;
-// 	std::istringstream iss(rpnExpression);
-// 	float	result;
-
-// 	while (iss >> token)
-// 	{
-// 		validateToken(token);
-// 		if (isValidNumber(token))
-// 			stk.push(stringToFloat(token));
-// 		else if (isOperator(token[0]))
-// 		{
-// 			if (stk.size() < 2)
-// 				throw std::runtime_error("Error: Not enough operators");
-// 			float second = stk.top(); stk.pop();
-// 			float first = stk.top(); stk.pop();
-// 			result = performOperation(first, second, token[0]);
-// 			stk.push(result);
-// 		}
-// 	}
-// 	if (stk.size() != 1)
-// 		throw std::runtime_error("Error: Invalid RPN expression");
-// 	result = stk.top();
-// 	return result;
-// }
-
-// int	main(int argc, char **argv)
-// {
-// 	float result;
-
-// 	if (argc != 2 || std::string(argv[1]).empty())
-// 	{
-// 		std::cerr << "Error: Invalid input" << std::endl;
-// 		return 1;
-// 	}
-// 	std::string rpnExpression = argv[1];
-// 	try 
-// 	{
-// 		result = calculateRPN(rpnExpression);
-// 		std::cout << result << std::endl;
-// 	} 
-// 	catch (const std::exception& e) 
-// 	{
-// 		std::cerr << e.what() << std::endl;
-//         return 1;
-// 	}
-// 	return 0;
-// }
+    return 0;
+}
 
