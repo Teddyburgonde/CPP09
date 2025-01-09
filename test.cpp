@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
         std::deque<int> deque;   // Conteneur pour les chiffres
         std::vector<std::pair<int, int> > even; // Conteneur pour les paires
         std::vector<int> final_vector;
-        std::vector<int> final_deque;
+        std::deque<int> final_deque;
 
         // Étape 1 et 2 : Vérifier, convertir et ajouter dans vector et deque
         for (int i = 1; i < argc; ++i) 
@@ -78,21 +78,32 @@ int main(int argc, char* argv[])
         // Etape 5 bis : trie final_vector
         std::sort(final_vector.begin(), final_vector.end());
         std::sort(final_deque.begin(), final_deque.end());
+        // Etape 6 : Insertion des max dans final_vector et final_deque
+        for (std::vector<std::pair<int, int> >::const_iterator it = even.begin(); it != even.end(); ++it) 
+        {
+           // Insertion des max dans final_vector
+           std::vector<int>::iterator pos_vector = std::lower_bound(final_vector.begin(), final_vector.end(), it->second);
+           final_vector.insert(pos_vector, it->second);
 
-        // Affichage des mins vector
-        std::cout << "Mins in final_vector:" << std::endl;
+           // Insertion des max dans final_deque
+            std::deque<int>::iterator pos_deque = std::lower_bound(final_deque.begin(), final_deque.end(), it->second);
+            final_deque.insert(pos_deque, it->second);
+        }
+
+        // Affichage du résultat final
+        std::cout << "Final sorted vector:" << std::endl;
         for (std::vector<int>::const_iterator it = final_vector.begin(); it != final_vector.end(); ++it) 
         {
             std::cout << *it << " ";
         }
         std::cout << std::endl;
-        // Affichage des mins deque
-        std::cout << "Mins in final_deque:" << std::endl;
-        for (std::vector<int>::const_iterator it = final_deque.begin(); it != final_deque.end(); ++it) 
+
+        std::cout << "Final sorted deque:" << std::endl;
+        for (std::deque<int>::const_iterator it = final_deque.begin(); it != final_deque.end(); ++it) 
         {
             std::cout << *it << " ";
         }
-        printPairs(even);
+        std::cout << std::endl;
     }
     catch (const std::exception& e) 
     {
