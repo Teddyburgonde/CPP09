@@ -1,3 +1,30 @@
+// Affichage des mins vector
+
+std::cout << "Mins in final_vector:" << std::endl;
+for (std::vector<int>::const_iterator it = final_vector.begin(); it != final_vector.end(); ++it) 
+{
+    std::cout << *it << " ";
+}
+
+std::cout << std::endl;
+// Affichage des mins deque
+std::cout << "Mins in final_deque:" << std::endl;
+for (std::vector<int>::const_iterator it = final_deque.begin(); it != final_deque.end(); ++it) 
+{
+    std::cout << *it << " ";
+}
+printPairs(even);
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+// trie aleatoire
+
+
 #include <iostream>
 #include <vector>
 #include <deque>
@@ -7,6 +34,7 @@
 #include <stdexcept> // Pour std::runtime_error
 #include <utility> // Pour std::pair
 #include <algorithm>
+#include <ctime> 
 
 // Fonction pour vérifier si une chaîne est un entier positif
 bool isValidNumber(const std::string& str) {
@@ -42,19 +70,41 @@ int main(int argc, char* argv[])
         std::vector<std::pair<int, int> > even; // Conteneur pour les paires
         std::vector<int> final_vector;
         std::deque<int> final_deque;
-
-        // Étape 1 et 2 : Vérifier, convertir et ajouter dans vector et deque
-        for (int i = 1; i < argc; ++i) 
+        
+        // debut test 
+        if (std::string(argv[1]) == "random") 
         {
-            std::string arg = argv[i];
+            int count = (argc > 2) ? std::atoi(argv[2]) : 100; // Nombre de nombres à générer
+            int range = (argc > 3) ? std::atoi(argv[3]) : 1000; // Plage des nombres
 
-            // Vérifier avec la fonction isValidNumber
-            if (isValidNumber(arg)) 
+            if (count <= 0 || range <= 0) {
+                throw std::runtime_error("Error: Invalid count or range for random generation.");
+            }
+
+            std::srand(std::time(0)); // Initialisation de la graine pour les nombres aléatoires
+            for (int i = 0; i < count; ++i) {
+                int num = std::rand() % range;
+                vector.push_back(num);
+                deque.push_back(num);
+            }
+        } 
+
+
+        else 
+        {
+            // Étape 1 et 2 : Vérifier, convertir et ajouter dans vector et deque
+            for (int i = 1; i < argc; ++i) 
             {
-                // Convertir l'argument en entier
-                int num = std::atoi(arg.c_str());
-                vector.push_back(num); // Ajouter dans vector
-                deque.push_back(num);  // Ajouter dans deque
+                std::string arg = argv[i];
+
+                // Vérifier avec la fonction isValidNumber
+                if (isValidNumber(arg)) 
+                {
+                    // Convertir l'argument en entier
+                    int num = std::atoi(arg.c_str());
+                    vector.push_back(num); // Ajouter dans vector
+                    deque.push_back(num);  // Ajouter dans deque
+                }
             }
         }
 
@@ -119,8 +169,9 @@ int main(int argc, char* argv[])
     catch (const std::exception& e) 
     {
         std::cerr << e.what() << std::endl;
-        return 1;
+        return 1; // Retourne une erreur si une exception est levée
     }
+
     return 0;
 }
 
