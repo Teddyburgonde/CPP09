@@ -6,6 +6,7 @@
 #include <cctype>  // Pour isdigit
 #include <stdexcept> // Pour std::runtime_error
 #include <utility> // Pour std::pair
+#include <algorithm>
 
 // Fonction pour vérifier si une chaîne est un entier positif
 bool isValidNumber(const std::string& str) {
@@ -65,7 +66,6 @@ int main(int argc, char* argv[])
         }
 
         // Affichage des paires
-        std::cout << "Even first:" << std::endl;
         std::vector<std::pair<int, int> >::const_iterator it = even.begin();
         std::vector<int>::iterator itt = final_vector.begin();
 
@@ -75,13 +75,24 @@ int main(int argc, char* argv[])
             final_vector.push_back(it->first); // Ajouter les mins (it->first) dans final_vector
             final_deque.push_back(it->first);
         }
-        // Affichage des mins
+        // Etape 5 bis : trie final_vector
+        std::sort(final_vector.begin(), final_vector.end());
+        std::sort(final_deque.begin(), final_deque.end());
+
+        // Affichage des mins vector
         std::cout << "Mins in final_vector:" << std::endl;
         for (std::vector<int>::const_iterator it = final_vector.begin(); it != final_vector.end(); ++it) 
         {
             std::cout << *it << " ";
         }
         std::cout << std::endl;
+        // Affichage des mins deque
+        std::cout << "Mins in final_deque:" << std::endl;
+        for (std::vector<int>::const_iterator it = final_deque.begin(); it != final_deque.end(); ++it) 
+        {
+            std::cout << *it << " ";
+        }
+        printPairs(even);
     }
     catch (const std::exception& e) 
     {
