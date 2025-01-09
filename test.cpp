@@ -8,18 +8,6 @@
 #include <utility> // Pour std::pair
 #include <algorithm>
 
-// Fonction pour vérifier si une chaîne est un entier positif
-bool isValidNumber(const std::string& str) 
-{
-    if (str.empty())
-        throw std::runtime_error("Error: Empty string is not a valid number.");
-    for (size_t i = 0; i < str.size(); ++i) 
-    {
-        if (!isdigit(str[i]))
-            throw std::runtime_error("Error: Non-numeric character found in input: " + str);
-    }
-    return true;
-}
 
 int main(int argc, char* argv[]) 
 {
