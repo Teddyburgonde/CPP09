@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 22:22:19 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/10 13:37:43 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:13:17 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,41 +44,23 @@ int main(int argc, char* argv[])
     {
         if (argc < 2)
             throw std::runtime_error("Error: No input provided.");
-        std::vector<int> vector;
-        std::deque<int> deque;
+
         std::vector<std::pair<int, int> > even;
-        std::vector<int> final_vector;
-        std::deque<int> final_deque;
-
-
         PmergeMe pmerge;
+
         pmerge.processInputs(argc, argv);
         pmerge.createPairs();
         pmerge.extractMins();
-        
-        clock_t start_vector = clock();
-        std::sort(final_vector.begin(), final_vector.end());
-        
+        pmerge.startVectorTimer();
+        pmerge.sortFinalVector(); 
         pmerge.insertMaxs();
-
-        clock_t end_vector = clock();
-        double time_vector = 1000.0 * (end_vector - start_vector) / CLOCKS_PER_SEC;
-
-        clock_t start_deque = clock();
-
+        pmerge.stopVectorTimer();
+        pmerge.startDequeTimer();
         pmerge.sortAndInsertMaxs();
-        
-        clock_t end_deque = clock();
-        double time_deque = 1000.0 * (end_deque - start_deque) / CLOCKS_PER_SEC;
-        
+        pmerge.stopDequeTimer();
         pmerge.removeMinusOne();
-        
-        printResults(final_vector, "Final sorted vector:");
-        printResults(final_deque, "Final sorted deque:");
-        std::cout << std::endl;
-        
-        std::cout << "Time to sort and insert using std::vector: " << time_vector << " ms" << std::endl;
-        std::cout << "Time to sort and insert using std::deque: " << time_deque << " ms" << std::endl;
+        pmerge.displayFinalResults();
+        pmerge.displayExecutionTime();
     }
     catch (const std::exception& e) 
     {

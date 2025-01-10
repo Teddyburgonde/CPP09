@@ -6,40 +6,43 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:20:49 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/10 14:01:11 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:24:00 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe() 
+PmergeMe::PmergeMe()  : time_vector(0), time_deque(0), start_vector(0), end_vector(0), start_deque(0), end_deque(0)
 {
+   
 }
 
 PmergeMe::~PmergeMe() 
 {
 }
 
-PmergeMe::PmergeMe(const PmergeMe& other) 
-{
-    *this = other;
-}
+PmergeMe::PmergeMe(const PmergeMe& other)
+    : vector(other.vector), deque(other.deque), even(other.even), 
+      final_vector(other.final_vector), final_deque(other.final_deque),
+      time_vector(other.time_vector), time_deque(other.time_deque),
+      start_vector(other.start_vector), end_vector(other.end_vector),
+      start_deque(other.start_deque), end_deque(other.end_deque) 
+{}
 
 PmergeMe& PmergeMe::operator=(const PmergeMe& other) 
 {
-    if (this != &other) 
-    {
-        this->vector = other.vector;
-        this->deque = other.deque;
-        this->even = other.even;
-        this->final_vector = other.final_vector;
-        this->final_deque = other.final_deque;
-        this->time_vector = other.time_vector;
-        this->time_deque = other.time_deque;
-        this->start_vector = other.start_vector;
-        this->end_vector = other.end_vector;
-        this->start_deque = other.start_deque;
-        this->end_deque = other.end_deque;
+    if (this != &other) {
+        vector = other.vector;
+        deque = other.deque;
+        even = other.even;
+        final_vector = other.final_vector;
+        final_deque = other.final_deque;
+        time_vector = other.time_vector;
+        time_deque = other.time_deque;
+        start_vector = other.start_vector;
+        end_vector = other.end_vector;
+        start_deque = other.start_deque;
+        end_deque = other.end_deque;
     }
     return *this;
 }
@@ -89,10 +92,10 @@ void PmergeMe::createPairs()
 
 void PmergeMe::extractMins() 
 {
-    for (std::vector<std::pair<int, int> >::const_iterator it = even.begin(); it != pairs.end(); ++it) 
+    for (std::vector<std::pair<int, int> >::const_iterator it = even.begin(); it != even.end(); ++it) 
     {
-        vector.push_back(it->first); // Ajouter les mins (it->first) dans vectorOut
-        deque.push_back(it->first);  // Ajouter les mins (it->first) dans dequeOut
+        final_vector.push_back(it->first); // Ajouter les mins (it->first) dans vectorOut
+        final_deque.push_back(it->first);  // Ajouter les mins (it->first) dans dequeOut
     }
 }
 
@@ -100,37 +103,78 @@ void PmergeMe::insertMaxs()
 {
     for (std::vector<std::pair<int, int> >::const_iterator it = even.begin(); it != even.end(); ++it) 
     {
-        // Trouver la position d'insertion pour le "max" (it->second)
         std::vector<int>::iterator pos = std::lower_bound(final_vector.begin(), final_vector.end(), it->second);
-        // Insérer le "max" à la position correcte
         final_vector.insert(pos, it->second);
     }
 }
 
-void sortAndInsertMaxs() 
+void PmergeMe::sortAndInsertMaxs() 
 {
-    // Trier le deque
-    std::sort(sortedDeque.begin(), sortedDeque.end());
+    std::sort(final_deque.begin(), final_deque.end());
 
-    // Insérer les "max" des paires
-    for (std::vector<std::pair<int, int> >::const_iterator it = pairs.begin(); it != pairs.end(); ++it) 
+    for (std::vector<std::pair<int, int> >::const_iterator it = even.begin(); it != even.end(); ++it) 
     {
-        // Trouver la position d'insertion pour le "max" (it->second)
-        std::deque<int>::iterator pos = std::lower_bound(sortedDeque.begin(), sortedDeque.end(), it->second);
-        // Insérer le "max" à la position correcte
-        sortedDeque.insert(pos, it->second);
+        std::deque<int>::iterator pos = std::lower_bound(final_deque.begin(), final_deque.end(), it->second);
+        final_deque.insert(pos, it->second);
     }
 }
 
-void removeMinusOne()
+void PmergeMe::removeMinusOne()
 {
-    // Vérifier si le premier élément est -1 dans les deux conteneurs
     if (!vector.empty() && vector.front() == -1)
-        vector.erase(vector.begin()); // Supprimer -1 du vecteur
+        vector.erase(vector.begin());
 
     if (!deque.empty() && deque.front() == -1)
-        deque.erase(deque.begin()); // Supprimer -1 du deque
+        deque.erase(deque.begin());
 }
 
 
+void PmergeMe::startVectorTimer() 
+{
+    start_vector = clock();
+}
 
+void PmergeMe::stopVectorTimer() 
+{
+    end_vector = clock();
+    time_vector = 1000000.0 * (end_vector - start_vector) / CLOCKS_PER_SEC;
+}
+
+void PmergeMe::startDequeTimer() 
+{
+    start_deque = clock();
+}
+
+void PmergeMe::stopDequeTimer() 
+{
+    end_deque = clock();
+    time_deque = 1000000.0 * (end_deque - start_deque) / CLOCKS_PER_SEC;
+}
+
+void PmergeMe::sortFinalVector() 
+{
+    std::sort(final_vector.begin(), final_vector.end());
+}
+
+void PmergeMe::displayFinalResults() const 
+{
+    std::cout << "Final sorted vector:" << std::endl;
+    for (std::vector<int>::const_iterator it = final_vector.begin(); it != final_vector.end(); ++it) 
+    {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Final sorted deque:" << std::endl;
+    for (std::deque<int>::const_iterator it = final_deque.begin(); it != final_deque.end(); ++it) 
+    {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+}
+
+void PmergeMe::displayExecutionTime() const 
+{
+    std::cout << "Time to sort and insert using std::vector: " << time_vector << " us" << std::endl;
+    std::cout << "Time to sort and insert using std::deque: " << time_deque << " us" << std::endl;
+}

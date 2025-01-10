@@ -28,9 +28,16 @@ class PmergeMe
 		void insertMaxs();
 		void sortAndInsertMaxs();
 		void removeMinusOne();
-
+		void displayFinalResults() const;
 
 		void displayExecutionTime() const;
+
+		void startVectorTimer();
+        void stopVectorTimer();
+        void startDequeTimer();
+        void stopDequeTimer();
+
+		void sortFinalVector();
 
 
 	private :
