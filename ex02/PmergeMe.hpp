@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <utility>
 #include <algorithm>
+#include <ctime>
 
 
 bool isValidNumber(const std::string& str);
@@ -20,8 +21,5 @@ void extractMins(const std::vector<std::pair<int, int> >& pairs, std::vector<int
 void insertMaxs(const std::vector<std::pair<int, int> >& pairs, std::vector<int>& sortedVector);
 void sortAndInsertMaxs(const std::vector<std::pair<int, int> >& pairs, std::deque<int>& sortedDeque);
 void removeMinusOne(std::vector<int>& vector, std::deque<int>& deque);
-
-template <typename Container>
-void printResults(const Container& container, const std::string& label);
 
 #endif

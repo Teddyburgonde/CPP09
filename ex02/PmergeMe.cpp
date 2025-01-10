@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:20:49 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/10 08:40:09 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/10 08:50:36 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,5 @@ void removeMinusOne(std::vector<int>& vector, std::deque<int>& deque)
         deque.erase(deque.begin()); // Supprimer -1 du deque
 }
 
-template <typename Container>
-void printResults(const Container& container, const std::string& label) 
-{
-    std::cout << label << std::endl;
-    for (typename Container::const_iterator it = container.begin(); it != container.end(); ++it) 
-    {
-        std::cout << *it << " ";
-    }
-    std::cout << std::endl;
-}
 
 

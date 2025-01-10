@@ -358,4 +358,19 @@ Ce guide vise à vous aider à résoudre rapidement et efficacement l’exercice
 
 Bonne chance ! Si vous avez des questions, n’hésitez pas à demander de l’aide. 😊
 
+# ex03
+
+```c
+Étape 1 et 2 : Vérifier, convertir et ajouter dans vector et deque
+Étape 3 : Former des paires
+Étape 4 : Envoyer les mins dans final_vector
+Etape 4 bis : trie final_vector
+Etape 4 bis : trie final_deque
+Etape 5 : Insertion des max dans final_vector
+Etape 5 : Insertion des max dans final_vector
+Etape 6 : gestion du -1;
+Etape 7 : Affichage du résultat final
+Etape 8 : Affichage du temps
+```
+
 
