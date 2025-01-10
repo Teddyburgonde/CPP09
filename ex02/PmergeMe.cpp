@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:20:49 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/10 15:24:00 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:29:02 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void PmergeMe::extractMins()
 {
     for (std::vector<std::pair<int, int> >::const_iterator it = even.begin(); it != even.end(); ++it) 
     {
-        final_vector.push_back(it->first); // Ajouter les mins (it->first) dans vectorOut
-        final_deque.push_back(it->first);  // Ajouter les mins (it->first) dans dequeOut
+        final_vector.push_back(it->first);
+        final_deque.push_back(it->first);
     }
 }
 
