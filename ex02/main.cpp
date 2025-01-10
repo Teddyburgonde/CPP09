@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 22:22:19 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/10 15:13:17 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/10 20:41:08 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void printResults(const Container& container, const std::string& label)
     }
     std::cout << std::endl;
 }
-
-
 
 int main(int argc, char* argv[]) 
 {

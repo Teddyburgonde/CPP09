@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:20:49 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/10 15:29:02 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/10 20:40:50 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,12 @@ void PmergeMe::sortAndInsertMaxs()
 
 void PmergeMe::removeMinusOne()
 {
-    if (!vector.empty() && vector.front() == -1)
-        vector.erase(vector.begin());
+    if (!final_vector.empty() && final_vector.front() == -1)
+        final_vector.erase(final_vector.begin());
 
-    if (!deque.empty() && deque.front() == -1)
-        deque.erase(deque.begin());
+    if (!final_deque.empty() && final_deque.front() == -1)
+        final_deque.erase(final_deque.begin());
 }
-
 
 void PmergeMe::startVectorTimer() 
 {
