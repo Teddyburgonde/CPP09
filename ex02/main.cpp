@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 22:22:19 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/10 08:56:12 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:37:43 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void printResults(const Container& container, const std::string& label)
     std::cout << std::endl;
 }
 
+
+
 int main(int argc, char* argv[]) 
 {
     try 
@@ -47,26 +49,29 @@ int main(int argc, char* argv[])
         std::vector<std::pair<int, int> > even;
         std::vector<int> final_vector;
         std::deque<int> final_deque;
-        processInputs(argc, argv, vector, deque);
-        createPairs(vector, even);
-        extractMins(even, final_vector, final_deque);
+
+
+        PmergeMe pmerge;
+        pmerge.processInputs(argc, argv);
+        pmerge.createPairs();
+        pmerge.extractMins();
         
         clock_t start_vector = clock();
         std::sort(final_vector.begin(), final_vector.end());
         
-        insertMaxs(even, final_vector);
+        pmerge.insertMaxs();
 
         clock_t end_vector = clock();
         double time_vector = 1000.0 * (end_vector - start_vector) / CLOCKS_PER_SEC;
 
         clock_t start_deque = clock();
 
-        sortAndInsertMaxs(even, final_deque);
+        pmerge.sortAndInsertMaxs();
         
         clock_t end_deque = clock();
         double time_deque = 1000.0 * (end_deque - start_deque) / CLOCKS_PER_SEC;
         
-        removeMinusOne(final_vector, final_deque);
+        pmerge.removeMinusOne();
         
         printResults(final_vector, "Final sorted vector:");
         printResults(final_deque, "Final sorted deque:");

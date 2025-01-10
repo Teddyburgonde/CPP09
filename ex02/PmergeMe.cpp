@@ -6,14 +6,47 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:20:49 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/10 08:50:36 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:01:11 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
+PmergeMe::PmergeMe() 
+{
+}
+
+PmergeMe::~PmergeMe() 
+{
+}
+
+PmergeMe::PmergeMe(const PmergeMe& other) 
+{
+    *this = other;
+}
+
+PmergeMe& PmergeMe::operator=(const PmergeMe& other) 
+{
+    if (this != &other) 
+    {
+        this->vector = other.vector;
+        this->deque = other.deque;
+        this->even = other.even;
+        this->final_vector = other.final_vector;
+        this->final_deque = other.final_deque;
+        this->time_vector = other.time_vector;
+        this->time_deque = other.time_deque;
+        this->start_vector = other.start_vector;
+        this->end_vector = other.end_vector;
+        this->start_deque = other.start_deque;
+        this->end_deque = other.end_deque;
+    }
+    return *this;
+}
+
+
 // Checks whether a string is a positive integer
-bool isValidNumber(const std::string& str) 
+bool PmergeMe::isValidNumber(const std::string& str) 
 {
     if (str.empty())
         throw std::runtime_error("Error: Empty string is not a valid number.");
@@ -25,58 +58,56 @@ bool isValidNumber(const std::string& str)
     return true;
 }
 
-void processInputs(int argc, char* argv[], std::vector<int>& vector, std::deque<int>& deque) 
+void PmergeMe::processInputs(int argc, char* argv[]) 
 {
     for (int i = 1; i < argc; ++i) 
     {
         std::string arg = argv[i];
 
-        // Vérifier avec la fonction isValidNumber
         if (isValidNumber(arg)) 
         {
-            // Convertir l'argument en entier
             int num = std::atoi(arg.c_str());
-            vector.push_back(num); // Ajouter dans vector
-            deque.push_back(num);  // Ajouter dans deque
+            vector.push_back(num);
+            deque.push_back(num);
         }
     }
 }
 
-void createPairs(const std::vector<int>& inputVector, std::vector<std::pair<int, int> >& pairs) 
+void PmergeMe::createPairs() 
 {
-    for (size_t i = 0; i < inputVector.size(); i += 2) 
+    for (size_t i = 0; i < vector.size(); i += 2) 
     {
-        int a = inputVector[i];
+        int a = vector[i];
         int b;
-        if (i + 1 < inputVector.size())
-            b = inputVector[i + 1];
+        if (i + 1 < vector.size())
+            b = vector[i + 1];
         else 
             b = -1;
-        pairs.push_back(std::make_pair(std::min(a, b), std::max(a, b))); // Créer une paire (min, max)
+        even.push_back(std::make_pair(std::min(a, b), std::max(a, b))); // Créer une paire (min, max)
     }
 }
 
-void extractMins(const std::vector<std::pair<int, int> >& pairs, std::vector<int>& vectorOut, std::deque<int>& dequeOut) 
+void PmergeMe::extractMins() 
 {
-    for (std::vector<std::pair<int, int> >::const_iterator it = pairs.begin(); it != pairs.end(); ++it) 
+    for (std::vector<std::pair<int, int> >::const_iterator it = even.begin(); it != pairs.end(); ++it) 
     {
-        vectorOut.push_back(it->first); // Ajouter les mins (it->first) dans vectorOut
-        dequeOut.push_back(it->first);  // Ajouter les mins (it->first) dans dequeOut
+        vector.push_back(it->first); // Ajouter les mins (it->first) dans vectorOut
+        deque.push_back(it->first);  // Ajouter les mins (it->first) dans dequeOut
     }
 }
 
-void insertMaxs(const std::vector<std::pair<int, int> >& pairs, std::vector<int>& sortedVector) 
+void PmergeMe::insertMaxs() 
 {
-    for (std::vector<std::pair<int, int> >::const_iterator it = pairs.begin(); it != pairs.end(); ++it) 
+    for (std::vector<std::pair<int, int> >::const_iterator it = even.begin(); it != even.end(); ++it) 
     {
         // Trouver la position d'insertion pour le "max" (it->second)
-        std::vector<int>::iterator pos = std::lower_bound(sortedVector.begin(), sortedVector.end(), it->second);
+        std::vector<int>::iterator pos = std::lower_bound(final_vector.begin(), final_vector.end(), it->second);
         // Insérer le "max" à la position correcte
-        sortedVector.insert(pos, it->second);
+        final_vector.insert(pos, it->second);
     }
 }
 
-void sortAndInsertMaxs(const std::vector<std::pair<int, int> >& pairs, std::deque<int>& sortedDeque) 
+void sortAndInsertMaxs() 
 {
     // Trier le deque
     std::sort(sortedDeque.begin(), sortedDeque.end());
@@ -91,7 +122,7 @@ void sortAndInsertMaxs(const std::vector<std::pair<int, int> >& pairs, std::dequ
     }
 }
 
-void removeMinusOne(std::vector<int>& vector, std::deque<int>& deque) 
+void removeMinusOne()
 {
     // Vérifier si le premier élément est -1 dans les deux conteneurs
     if (!vector.empty() && vector.front() == -1)
