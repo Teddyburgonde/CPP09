@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:19:27 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/11 13:58:35 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:17:04 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void BitcoinExchange::processInput(const std::string &inputFilePath)
 
     // Set fixed-point notation for output (optional for formatting)
     std::cout.precision(2);
-    //std::cout.setf(std::ios::fixed, std::ios::floatfield);
 
     // Read the file line by line
     while (std::getline(inputFile, line))
@@ -82,7 +81,8 @@ void BitcoinExchange::processInput(const std::string &inputFilePath)
 
         // Validate and convert the rate using istringstream
         std::istringstream rateStream(rate);
-        if (!(rateStream >> rateFloat) || !rateStream.eof()) {
+        if (!(rateStream >> rateFloat) || !rateStream.eof()) 
+        {
             std::cerr << "Error: Invalid rate => " << rate << std::endl;
             continue;
         }
@@ -96,7 +96,8 @@ void BitcoinExchange::processInput(const std::string &inputFilePath)
 
         // Find the corresponding date in bitcoin data
         std::map<std::string, float>::const_iterator it = bitcoinData.lower_bound(date);
-        if (it == bitcoinData.end() || it->first != date) {
+        if (it == bitcoinData.end() || it->first != date) 
+        {
             if (it == bitcoinData.begin()) 
             {
                 std::cerr << "Error: Date not found in database => " << date << std::endl;

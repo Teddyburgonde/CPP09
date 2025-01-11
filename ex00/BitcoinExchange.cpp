@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:50:22 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/11 07:41:32 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:14:12 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void BitcoinExchange::readBitcoinData()
             std::cerr << "Error: Invalid line format => " << line << std::endl;
             continue;
         }
-		date = trim(date); // Apply trimming if necessary
+		date = trim(date);
         rateStr = trim(rateStr);
 
 		// Converts a string to a float 

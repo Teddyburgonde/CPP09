@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:45:00 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/11 08:51:40 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:04:26 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ class BitcoinExchange
 		void readBitcoinData();
 		void processInput(const std::string &inputFilePath);
 };
-
 
 std::string trim(const std::string& str);
 bool isValidDate(const std::string &date, std::string &errorMessage);

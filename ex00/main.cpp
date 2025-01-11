@@ -6,12 +6,11 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:51:22 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/11 08:51:57 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:32:55 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-
 
 /**
  * Main function
@@ -38,8 +37,6 @@ int main(int argc, char **argv)
          	throw std::runtime_error("Error: could not open file.");
         BitcoinExchange btcExchange;
 
-
-         // Load Bitcoin data from the fixed file "data.csv"
         btcExchange.readBitcoinData();
         btcExchange.processInput(argv[1]);
     }

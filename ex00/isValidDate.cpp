@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:20:46 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/11 08:57:04 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:27:00 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,21 @@ static bool isValidMonthRange(int month, std::string &errorMessage)
     }
     return true;
 }
+
+
+/**
+ * Validates if the day in a given date is within the valid range for the specified month and year.
+ * - Checks the general range of days (1-31).
+ * - Handles specific cases for months with 30 days.
+ * - Handles February separately for leap and non-leap years.
+ * - Updates the errorMessage string if the day is invalid.
+ *
+ * @param year The year of the date to validate.
+ * @param month The month of the date to validate.
+ * @param date The date string in the format "YYYY-MM-DD".
+ * @param errorMessage Reference to a string for storing an error message if validation fails.
+ * @return true if the day is valid, false otherwise.
+ */
 
 static bool isValidDayRange(int year, int month, const std::string &date, std::string &errorMessage)
 {
