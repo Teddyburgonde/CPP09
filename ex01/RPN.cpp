@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 09:32:31 by tebandam          #+#    #+#             */
-/*   Updated: 2024/12/29 09:46:31 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:02:55 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static bool isValidNumber(const std::string& token)
     float value;
 	bool isValid;
 
+	// Checks if the conversion of the string to a float was successful and if the entire string has been consumed (no extra characters).
 	isValid = (iss >> value) && iss.eof();
     return isValid;
 }

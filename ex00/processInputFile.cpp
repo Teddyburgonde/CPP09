@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:19:27 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/11 14:17:04 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/11 18:11:22 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,6 @@ std::string trim(const std::string& str)
         result += str[i];
     return result;
 }
-
-/**
- * processInput
- * This function reads a file containing pairs of dates and values, validates the entries,
- * and computes the Bitcoin value based on exchange rates stored in a database (bitcoinData).
- * The results are displayed in a formatted way, and any errors are reported.
- * 
- * @param inputFilePath : path to the input file.
- * @param bitcoinData : map containing Bitcoin exchange rates by date.
- * @throws std::runtime_error : if the file cannot be opened.
- */
 
 void BitcoinExchange::processInput(const std::string &inputFilePath)
 {
@@ -75,7 +64,7 @@ void BitcoinExchange::processInput(const std::string &inputFilePath)
         // Validate the date
         if (!isValidDate(date, errorMessage)) 
         {
-            std::cerr << errorMessage << " => " << date << std::endl;
+            std::cerr << errorMessage << std::endl;
             continue;
         }
 
@@ -88,12 +77,16 @@ void BitcoinExchange::processInput(const std::string &inputFilePath)
         }
 
         // Confirm range of rate
-        if (rateFloat < 0 || rateFloat > 1000) 
+        if (rateFloat < 0)
         {
             std::cerr << "Error: not a positive number." << std::endl;
             continue;
         }
-
+        if (rateFloat > 1000)
+        {
+            std::cerr << "Error: rate exceeds maximum value." << std::endl;
+            continue;
+        }
         // Find the corresponding date in bitcoin data
         std::map<std::string, float>::const_iterator it = bitcoinData.lower_bound(date);
         if (it == bitcoinData.end() || it->first != date) 
