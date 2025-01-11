@@ -6,33 +6,42 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:51:22 by tebandam          #+#    #+#             */
-/*   Updated: 2024/12/28 11:29:39 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/11 08:51:57 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
+
+/**
+ * Main function
+ * This program calculates Bitcoin values based on exchange rates stored in a fixed file ("data.csv")
+ * and processes an input file provided as a command-line argument.
+ *
+ * Workflow:
+ * 1. Validates that exactly one argument (the input file) is provided.
+ * 2. Loads Bitcoin exchange rates from the fixed file "data.csv".
+ * 3. Processes the input file to compute Bitcoin values for the given dates and amounts.
+ * 4. Handles errors such as missing files, invalid input format, or incorrect arguments.
+ *
+ * Usage:
+ * ./btc <input_file>
+ * Example:
+ * ./btc input.txt
+ */
+ 
 int main(int argc, char **argv)
 {
-    (void)argv;
     try
     {
         if (argc != 2)
-         	throw std::runtime_error("Error number of arguments");
-        std::map<std::string, float> bitcoinData;
-        bitcoinData["2023-06-01"] = 20000.0;
-        bitcoinData["2023-06-02"] = 25000.0;
-        bitcoinData["2023-12-31"] = 30000.0;
-        bitcoinData["2023-06-03"] = 18000.0;
-        bitcoinData["2023-06-04"] = 22000.0;
-        bitcoinData["2023-06-05"] = 25000.0;
-        bitcoinData["2023-06-06"] = 27000.0;
-        bitcoinData["2023-06-07"] = 28000.0;
-        bitcoinData["2023-06-08"] = 29000.0;
-        bitcoinData["2023-04-30"] = 21000.0; // Dernière date valide pour avril
-        bitcoinData["2023-06-10"] = 23000.0;
-        std::string inputFilePath = "input.txt";
-        processInputFile(inputFilePath, bitcoinData);
+         	throw std::runtime_error("Error: could not open file.");
+        BitcoinExchange btcExchange;
+
+
+         // Load Bitcoin data from the fixed file "data.csv"
+        btcExchange.readBitcoinData();
+        btcExchange.processInput(argv[1]);
     }
     catch (const std::exception& e)
     {
