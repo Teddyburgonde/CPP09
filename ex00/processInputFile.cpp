@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:19:27 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/11 09:46:33 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:58:35 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ std::string trim(const std::string& str)
  * @param bitcoinData : map containing Bitcoin exchange rates by date.
  * @throws std::runtime_error : if the file cannot be opened.
  */
- 
+
 void BitcoinExchange::processInput(const std::string &inputFilePath)
 {
     std::string line, date, rate, errorMessage;
@@ -50,7 +50,7 @@ void BitcoinExchange::processInput(const std::string &inputFilePath)
 
     // Set fixed-point notation for output (optional for formatting)
     std::cout.precision(2);
-    std::cout.setf(std::ios::fixed, std::ios::floatfield);
+    //std::cout.setf(std::ios::fixed, std::ios::floatfield);
 
     // Read the file line by line
     while (std::getline(inputFile, line))
@@ -63,8 +63,9 @@ void BitcoinExchange::processInput(const std::string &inputFilePath)
 
         // Split the line into date and rate
         std::istringstream iss(line);
-        if (!std::getline(iss, date, '|') || !std::getline(iss, rate)) {
-            std::cerr << "Error: Invalid line format => " << line << std::endl;
+        if (!std::getline(iss, date, '|') || !std::getline(iss, rate)) 
+        {
+            std::cerr << "Error: bad input => " << line << std::endl;
             continue;
         }
 
@@ -73,7 +74,8 @@ void BitcoinExchange::processInput(const std::string &inputFilePath)
         rate = trim(rate);
 
         // Validate the date
-        if (!isValidDate(date, errorMessage)) {
+        if (!isValidDate(date, errorMessage)) 
+        {
             std::cerr << errorMessage << " => " << date << std::endl;
             continue;
         }
@@ -88,14 +90,15 @@ void BitcoinExchange::processInput(const std::string &inputFilePath)
         // Confirm range of rate
         if (rateFloat < 0 || rateFloat > 1000) 
         {
-            std::cerr << "Error: too large a number." << std::endl;
+            std::cerr << "Error: not a positive number." << std::endl;
             continue;
         }
 
         // Find the corresponding date in bitcoin data
         std::map<std::string, float>::const_iterator it = bitcoinData.lower_bound(date);
         if (it == bitcoinData.end() || it->first != date) {
-            if (it == bitcoinData.begin()) {
+            if (it == bitcoinData.begin()) 
+            {
                 std::cerr << "Error: Date not found in database => " << date << std::endl;
                 continue;
             }
@@ -108,6 +111,5 @@ void BitcoinExchange::processInput(const std::string &inputFilePath)
         // Display the result
         std::cout << date << " => " << rate << " = " << valueOfBitcoin << std::endl;
     }
-
     inputFile.close(); // Close the file
 }
