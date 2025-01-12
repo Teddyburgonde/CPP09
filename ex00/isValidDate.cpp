@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:20:46 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/11 16:34:40 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:17:36 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ static bool isValidRange(const std::string &date, std::string &errorMessage)
     return true;
 }
 
-bool isValidDate(const std::string &date, std::string &errorMessage)
+bool BitcoinExchange::isValidDate(const std::string &date, std::string &errorMessage)
 {
     if (isDateFormatValid(date, errorMessage) == false || isValidRange(date, errorMessage) == false)
 		return false;

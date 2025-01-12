@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   isValidRate.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teddybandama <teddybandama@student.42.f    +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:20:46 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/12 09:06:00 by teddybandam      ###   ########.fr       */
+/*   Updated: 2025/01/12 12:17:00 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-
 
 bool isValidRate(const std::string& rate, std::string &errorMessage)
 {
@@ -23,7 +22,6 @@ bool isValidRate(const std::string& rate, std::string &errorMessage)
 		errorMessage = "Error: Rate is not a valid number.";
 		return false;
 	}
-	// Check that the entire string has been converted
 	if (!ss.eof())
 	{
 		errorMessage = "Error: Rate contains extra characters.";

@@ -6,13 +6,13 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:19:27 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/11 18:11:22 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:15:12 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
-std::string trim(const std::string& str) 
+std::string BitcoinExchange::trim(const std::string& str) 
 {
     size_t start = 0;
     while (start < str.size() && std::isspace(str[start])) 

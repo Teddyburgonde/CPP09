@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teddybandama <teddybandama@student.42.f    +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:20:49 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/12 09:00:14 by teddybandam      ###   ########.fr       */
+/*   Updated: 2025/01/12 12:12:11 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,9 +166,7 @@ void PmergeMe::displayFinalResults() const
 
     std::cout << "After sorted deque: ";
     for (std::deque<int>::const_iterator it = final_deque.begin(); it != final_deque.end(); ++it) 
-    {
         std::cout << *it << " ";
-    }
     std::cout << std::endl;
 }
 
@@ -176,23 +174,18 @@ void PmergeMe::displayContainers() const
 {
     std::cout << "Before vector: ";
     for (std::vector<int>::const_iterator it = vector.begin(); it != vector.end(); ++it) 
-    {
         std::cout << *it << " ";
-    }
     std::cout << std::endl;
 
     std::cout << "Before deque: ";
     for (std::deque<int>::const_iterator it = deque.begin(); it != deque.end(); ++it) 
-    {
         std::cout << *it << " ";
-    }
     std::cout << std::endl;
 }
 
 
 void PmergeMe::displayExecutionTime() const 
 {
-    std::cout << std::fixed << std::setprecision(5);
     std::cout << "Time to sort and insert using std::vector: " << time_vector << " us" << std::endl;
     std::cout << "Time to sort and insert using std::deque: " << time_deque << " us" << std::endl;
 }
