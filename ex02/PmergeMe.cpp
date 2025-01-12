@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: teddybandama <teddybandama@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:20:49 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/10 20:40:50 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/12 08:44:48 by teddybandam      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool PmergeMe::isValidNumber(const std::string& str)
     for (size_t i = 0; i < str.size(); ++i) 
     {
         if (!isdigit(str[i]))
-            throw std::runtime_error("Error: Non-numeric character found in input: " + str);
+            throw std::runtime_error("Error");
     }
     return true;
 }
