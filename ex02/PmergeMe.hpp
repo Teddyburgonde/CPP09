@@ -29,26 +29,21 @@ class PmergeMe
 		void insertMaxs();
 		void sortAndInsertMaxs();
 		void removeMinusOne();
+		void displayContainers() const;
 		void displayFinalResults() const;
-
 		void displayExecutionTime() const;
-
 		void startVectorTimer();
         void stopVectorTimer();
         void startDequeTimer();
         void stopDequeTimer();
-
 		void sortFinalVector();
-
 
 	private :
 		std::vector<int> vector;
 		std::deque<int> deque;
-
 		std::vector<std::pair<int, int> > even;
 		std::vector<int> final_vector;
 		std::deque<int> final_deque;
-		
 		double time_vector;
 		double time_deque;
 		clock_t start_vector;

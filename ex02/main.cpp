@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: teddybandama <teddybandama@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 22:22:19 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/10 20:41:08 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/12 09:01:15 by teddybandam      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int main(int argc, char* argv[])
         PmergeMe pmerge;
 
         pmerge.processInputs(argc, argv);
+        pmerge.displayContainers();
         pmerge.createPairs();
         pmerge.extractMins();
         pmerge.startVectorTimer();

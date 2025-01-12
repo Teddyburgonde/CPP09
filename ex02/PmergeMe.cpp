@@ -6,7 +6,7 @@
 /*   By: teddybandama <teddybandama@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:20:49 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/12 08:52:31 by teddybandam      ###   ########.fr       */
+/*   Updated: 2025/01/12 09:00:14 by teddybandam      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void PmergeMe::createPairs()
             b = vector[i + 1];
         else 
             b = -1;
-        even.push_back(std::make_pair(std::min(a, b), std::max(a, b))); // Créer une paire (min, max)
+        even.push_back(std::make_pair(std::min(a, b), std::max(a, b)));
     }
 }
 
@@ -171,6 +171,24 @@ void PmergeMe::displayFinalResults() const
     }
     std::cout << std::endl;
 }
+
+void PmergeMe::displayContainers() const 
+{
+    std::cout << "Before vector: ";
+    for (std::vector<int>::const_iterator it = vector.begin(); it != vector.end(); ++it) 
+    {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Before deque: ";
+    for (std::deque<int>::const_iterator it = deque.begin(); it != deque.end(); ++it) 
+    {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+}
+
 
 void PmergeMe::displayExecutionTime() const 
 {
