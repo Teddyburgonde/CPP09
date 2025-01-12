@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:19:27 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/12 12:15:12 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:37:45 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void BitcoinExchange::processInput(const std::string &inputFilePath)
         }
         if (rateFloat > 1000)
         {
-            std::cerr << "Error: rate exceeds maximum value." << std::endl;
+            std::cerr << "Error: too large a number." << std::endl;
             continue;
         }
         // Find the corresponding date in bitcoin data
