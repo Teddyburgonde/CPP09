@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 09:33:15 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/11 15:50:27 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:29:01 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 
 class RPN
 {
+	private:
+		std::stack<float> stk;
+
 	public:
 		RPN();
 		~RPN();

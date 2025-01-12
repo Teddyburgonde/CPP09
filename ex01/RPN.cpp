@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 09:32:31 by tebandam          #+#    #+#             */
-/*   Updated: 2025/01/11 15:02:55 by tebandam         ###   ########.fr       */
+/*   Updated: 2025/01/12 12:31:03 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,8 @@ static void validateToken(const std::string& token)
         throw std::runtime_error("Error");
 }
 
-
 float RPN::calculateRPN(std::string rpnExpression)
 {
-	std::stack<float> stk;
 	std::string token;
 	std::istringstream iss(rpnExpression);
 	float	result;
