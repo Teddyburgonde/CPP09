@@ -6,7 +6,7 @@
 /*   By: teddybandama <teddybandama@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 19:20:49 by teddybandam       #+#    #+#             */
-/*   Updated: 2025/01/12 08:44:48 by teddybandam      ###   ########.fr       */
+/*   Updated: 2025/01/12 08:52:31 by teddybandam      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,14 +157,14 @@ void PmergeMe::sortFinalVector()
 
 void PmergeMe::displayFinalResults() const 
 {
-    std::cout << "Final sorted vector:" << std::endl;
+    std::cout << "After sorted vector: ";
     for (std::vector<int>::const_iterator it = final_vector.begin(); it != final_vector.end(); ++it) 
     {
         std::cout << *it << " ";
     }
     std::cout << std::endl;
 
-    std::cout << "Final sorted deque:" << std::endl;
+    std::cout << "After sorted deque: ";
     for (std::deque<int>::const_iterator it = final_deque.begin(); it != final_deque.end(); ++it) 
     {
         std::cout << *it << " ";
@@ -174,6 +174,7 @@ void PmergeMe::displayFinalResults() const
 
 void PmergeMe::displayExecutionTime() const 
 {
+    std::cout << std::fixed << std::setprecision(5);
     std::cout << "Time to sort and insert using std::vector: " << time_vector << " us" << std::endl;
     std::cout << "Time to sort and insert using std::deque: " << time_deque << " us" << std::endl;
 }
